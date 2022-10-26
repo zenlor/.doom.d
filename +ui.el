@@ -18,7 +18,7 @@
 ;; theme
 ;(setq doom-theme 'doom-monokai-spectrum)
 ;(setq doom-theme 'doom-sourcerer)
-(setq doom-theme 'doom-old-hope)
+(setq doom-theme 'doom-snazzy)
 
 ;; Fonts
 (setq doom-font (font-spec :family "Iosevka" :size 20)
