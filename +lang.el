@@ -28,3 +28,7 @@
 (map! :localleader
       (:map (clojure-mode-map clojurescript-mode-map clojurec-mode-map)
        "e g" #'cider-pprint-eval-last-sexp-to-comment))
+
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-server-programs
+               '(terraform-mode . ("terraform-ls" "serve"))))
