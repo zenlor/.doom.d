@@ -23,10 +23,51 @@
 (add-to-list 'exec-path
                 (concat (getenv "HOME") "/.luarocks/bin"))
 
-(load! "+evil")
-(load! "+bindings")
-;(load! "+email")
-(load! "+org")
-(load! "+lang")
-(load! "+ui")
+;; UI
+(setq doom-theme 'doom-snazzy)
 
+;; Font
+(setq doom-font (font-spec :family "Iosevka" :size 20)
+      doom-variable-pitch-font (font-spec :family "Iosevka Aile")
+      doom-unicode-font (font-spec :family "Iosevka")
+      doom-big-font (font-spec :family "Iosevka" :size 28))
+
+;; Org
+(let ((org-dir (expand-file-name "~/Documents/Notes/")))
+  (setq org-directory org-dir)
+  (setq deft-directory org-dir))
+
+;; eglot settings
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-server-programs
+               '(terraform-mode . ("terraform-ls" "serve"))))
+
+
+;; evil settings, substitute globallly by default
+(setq evil-ex-substitute-global t)
+
+(map! ;; sexp navigation
+      :nv "U" 'backward-up-list
+      :nv "R" 'down-list
+      :nv "L" 'sp-forward-sexp
+      :nv "H" 'sp-backward-sexp
+
+      ;; Easier window navigation
+      :n "C-h"   #'evil-window-left
+      :n "C-j"   #'evil-window-down
+      :n "C-k"   #'evil-window-up
+      :n "C-l"   #'evil-window-right
+
+      (:leader
+        (:desc "Yank" :n "y" #'counsel-yank-pop)
+        (:prefix "o"
+          :desc "mu4e" :n "e" #'mu4e))
+
+      (:after clojure-mode
+        :localleader
+        (:map clojure-mode-map
+              "S" #'cider-repl-set-ns
+              "N" #'cider-enlighten-mode
+              "s" #'cider-scratch
+              "b" #'cider-load-buffer
+              "B" #'cider-load-buffer-and-switch-to-repl-buffer)))
