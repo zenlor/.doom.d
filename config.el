@@ -61,7 +61,9 @@
       (:leader
         (:desc "Yank" :n "y" #'counsel-yank-pop)
         (:prefix "o"
-          :desc "mu4e" :n "e" #'mu4e))
+          :desc "mu4e" :n "e" #'mu4e)
+        (:prefix "i"
+                 :n "g" #'gitmoji-insert-emoji))
 
       (:after clojure-mode
         :localleader
